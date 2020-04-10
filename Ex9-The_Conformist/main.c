@@ -11,6 +11,7 @@ Purpose: This file get number of elements from user,
 #include <math.h>
 
 #define INITIAL_INDEX (0)
+enum return_values { FAILURE, SUCCESS };
 
 int* get_numbers_from_user_to_array(int* array_pointer,
 	int number_of_elements) {
@@ -125,4 +126,67 @@ int closest_element_to_average(int* array_pointer,
 		}
 	}
 	return closest_element;
+}
+
+int main() {
+	/********************************************************\
+	* Function name - main
+	*
+	* Function Purpose - get the number of elements from user,
+	and the elements, save them to array,
+	*						calculate the average of the array,
+	*						and find the closest element in array
+	*						to the average
+	*
+	* Parameters - no Input/Output parameters
+	*
+	* Return Value - if allocation of memory failed - FAILURE
+	*				 otherwise - SUCCESS
+	*
+	* Side Effects - this function allocate memory in order to save
+	*				 the numbers from user and free the memory in
+	*				 the end of the running
+	*
+	* Semantics - this function get number of elements from use,
+	*			  get the elements, call functions that calculate the
+	*			  average and find the closest element to the average
+	*
+	* Author - Liri
+	\********************************************************/
+	int number_of_elements = INITIAL_INDEX;
+	int *array_pointer;
+	float average = INITIAL_INDEX;
+	int closest_element = INITIAL_INDEX;
+
+	/*get number of elements*/
+	printf("Enter the number of the elements:\n");
+	scanf_s("%d", &number_of_elements);
+
+	/*allocate memory for array of numbers from user*/
+	array_pointer = (int*)malloc(number_of_elements * sizeof(int));
+	if (NULL == array_pointer)
+	{
+		printf("Error! memory allocation failed.\n");
+		return FAILURE;
+	}
+
+	/*fill the array with the numbers from user*/
+	array_pointer = get_numbers_from_user_to_array(array_pointer,
+		number_of_elements);
+
+	/*the average of the numbers in array*/
+	average = average_of_numbers_in_array(array_pointer,
+		number_of_elements);
+	printf("The average is: %f\n",
+		average);
+
+	/*the closest element to the average*/
+	closest_element = closest_element_to_average(array_pointer,
+		number_of_elements,
+		average);
+	printf("The closest number to the average is: %d\n",
+		closest_element);
+
+	free(array_pointer);
+	return SUCCESS;
 }
