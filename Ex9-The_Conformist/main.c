@@ -134,12 +134,64 @@ int closest_element_to_average(int* array_pointer,
 	return closest_element;
 }
 
+int* print_average_and_closest_number_to_it(int* array_pointer, 
+										int number_of_elements) {
+	/********************************************************\
+	* Function name - print_average_and_closest_number_to_it
+	*
+	* Function Purpose - get the number of elements from user,
+	*					 and the elements, save them to array,
+	*						calculate the average of the array,
+	*						and find the closest element in array
+	*						to the average
+	*
+	* Parameters - INOUT int* array_pointe - the pointer to the array
+	*				that contain the numbers from the user
+	*			   IN int number_of_elements - the number of the elements
+	*				in the array
+	*
+	* Return Value - the pointer to the array that contain 
+	*				 the numbers from the user
+	*
+	* Side Effects - this function change the array_pointer,
+	*				 such that it add to the array the numbers from user
+	*
+	* Semantics - this function call functions that 
+	*			  get number of elements from user,
+	*			  get the elements, calculate the
+	*			  average and find the closest element to the average
+	*
+	* Author - Liri
+	\********************************************************/
+	float average = INITIAL_INDEX;
+	int closest_element = INITIAL_INDEX;
+
+	/*fill the array with the numbers from user*/
+	array_pointer = get_numbers_from_user_to_array(array_pointer,
+		number_of_elements);
+
+	/*print the average of the numbers in array*/
+	average = average_of_numbers_in_array(array_pointer,
+		number_of_elements);
+	printf(STRING_PRINT_AVERAGE,
+		average);
+
+	/*print the closest element to the average*/
+	closest_element = closest_element_to_average(array_pointer,
+		number_of_elements,
+		average);
+	printf(STRING_PRINT_CLOSEST_ELEMENT_TO_AVERAGE,
+		closest_element);
+
+	return array_pointer;
+}
+
 int main() {
 	/********************************************************\
 	* Function name - main
 	*
 	* Function Purpose - get the number of elements from user,
-	and the elements, save them to array,
+	*					 and the elements, save them to array,
 	*						calculate the average of the array,
 	*						and find the closest element in array
 	*						to the average
@@ -153,8 +205,9 @@ int main() {
 	*				 the numbers from user and free the memory in
 	*				 the end of the running
 	*
-	* Semantics - this function get number of elements from use,
-	*			  get the elements, call functions that calculate the
+	* Semantics - this function allocate memory for array of numbers,
+	*			  call function that get number of elements from user,
+	*			  get the elements, that calculate the
 	*			  average and find the closest element to the average
 	*
 	* Author - Liri
@@ -176,22 +229,8 @@ int main() {
 		return FAILURE;
 	}
 
-	/*fill the array with the numbers from user*/
-	array_pointer = get_numbers_from_user_to_array(array_pointer,
-		number_of_elements);
-
-	/*print the average of the numbers in array*/
-	average = average_of_numbers_in_array(array_pointer,
-		number_of_elements);
-	printf(STRING_PRINT_AVERAGE,
-		average);
-
-	/*print the closest element to the average*/
-	closest_element = closest_element_to_average(array_pointer,
-		number_of_elements,
-		average);
-	printf(STRING_PRINT_CLOSEST_ELEMENT_TO_AVERAGE,
-		closest_element);
+	array_pointer = print_average_and_closest_number_to_it(array_pointer, 
+														number_of_elements);
 
 	free(array_pointer);
 	return SUCCESS;
