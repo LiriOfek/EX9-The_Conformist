@@ -11,6 +11,12 @@ Purpose: This file get number of elements from user,
 #include <math.h>
 
 #define INITIAL_INDEX (0)
+#define GET_NUMBER_OF_ELEMENTS ("Enter the number of the elements:\n")
+#define GET_INTEGER ("%d")
+#define ERROR_MEMORY_ALLOCATION_FAILED ("Error! memory allocation failed.\n")
+#define STRING_PRINT_AVERAGE ("The average is: %f\n")
+#define STRING_PRINT_CLOSEST_ELEMENT_TO_AVERAGE ("The closest number to the average is: %d\n")
+
 enum return_values { FAILURE, SUCCESS };
 
 int* get_numbers_from_user_to_array(int* array_pointer,
@@ -159,14 +165,14 @@ int main() {
 	int closest_element = INITIAL_INDEX;
 
 	/*get number of elements*/
-	printf("Enter the number of the elements:\n");
-	scanf_s("%d", &number_of_elements);
+	printf(GET_NUMBER_OF_ELEMENTS);
+	scanf_s(GET_INTEGER, &number_of_elements);
 
 	/*allocate memory for array of numbers from user*/
 	array_pointer = (int*)malloc(number_of_elements * sizeof(int));
 	if (NULL == array_pointer)
 	{
-		printf("Error! memory allocation failed.\n");
+		printf(ERROR_MEMORY_ALLOCATION_FAILED);
 		return FAILURE;
 	}
 
@@ -174,17 +180,17 @@ int main() {
 	array_pointer = get_numbers_from_user_to_array(array_pointer,
 		number_of_elements);
 
-	/*the average of the numbers in array*/
+	/*print the average of the numbers in array*/
 	average = average_of_numbers_in_array(array_pointer,
 		number_of_elements);
-	printf("The average is: %f\n",
+	printf(STRING_PRINT_AVERAGE,
 		average);
 
-	/*the closest element to the average*/
+	/*print the closest element to the average*/
 	closest_element = closest_element_to_average(array_pointer,
 		number_of_elements,
 		average);
-	printf("The closest number to the average is: %d\n",
+	printf(STRING_PRINT_CLOSEST_ELEMENT_TO_AVERAGE,
 		closest_element);
 
 	free(array_pointer);
