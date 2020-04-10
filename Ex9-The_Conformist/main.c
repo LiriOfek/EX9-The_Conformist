@@ -118,6 +118,8 @@ int closest_element_to_average(int* array_pointer,
 	int closest_element = INITIAL_INDEX;
 	int index = INITIAL_INDEX;
 
+	/*calculate distance by the absolute value of the difference 
+		between element and the average*/
 	shortest_distance = fabsf(*(array_pointer)-average);
 	closest_element = *(array_pointer);
 
